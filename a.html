@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haula Hellbell | Weapon Dealer Official</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Cinzel:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 変数設定 --- */
+        :root {
+            --bg-dark: #070707;
+            --accent-gold: #c5a059;
+            --accent-red: #8b0000;
+            --text-main: #e0e0e0;
+            --glass: rgba(255, 255, 255, 0.02);
+            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* --- 基本設定 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Noto Serif JP', serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+            cursor: none;
+            /* デフォルトカーソルを非表示（PC用） */
+        }
+
+        /* カスタムカーソル（PCのみ） */
+        #custom-cursor {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+            display: block;
+        }
+
+        #custom-cursor::before,
+        #custom-cursor::after {
+            content: '';
+            position: absolute;
+            background: var(--accent-gold);
+        }
+
+        #custom-cursor::before {
+            top: 50%;
+            left: -5px;
+            width: 40px;
+            height: 1px;
+        }
+
+        #custom-cursor::after {
+            left: 50%;
+            top: -5px;
+            width: 1px;
+            height: 40px;
+        }
+
+        /* タッチデバイス（スマホ・タブレット）ではカスタムカーソルをオフにする */
+        @media (hover: none) and (pointer: coarse) {
+
+            body,
+            * {
+                cursor: auto !important;
+            }
+
+            #custom-cursor {
+                display: none !important;
+            }
+        }
+
+        /* --- ヘッダー --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(7, 7, 7, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+        }
+
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 2001;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-gold);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* --- 全画面ナビ --- */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(7, 7, 7, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 1000;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-menu li {
+            margin: 25px 0;
+        }
+
+        .nav-menu a {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 6px;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+
+        /* --- セクション --- */
+        section {
+            padding: 100px 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+
+        /* ヒーロー */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .catchphrase {
+            letter-spacing: 0.3em;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            letter-spacing: 0.1em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero-sub {
+            letter-spacing: 3px;
+            opacity: 0.7;
+            margin-top: 20px;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        /* プロフィール（写真なしレイアウト） */
+        .profile-container {
+            background: var(--glass);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            padding: 50px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .profile-msg {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            border-left: none;
+            border-bottom: 2px solid var(--accent-red);
+            padding-bottom: 20px;
+            display: inline-block;
+        }
+
+        .profile-table {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .profile-table td {
+            padding: 15px 10px;
+        }
+
+        .profile-table .td-label {
+            color: var(--accent-gold);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            width: 40%;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .profile-table .td-data {
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        /* リンクグリッド */
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .contract-card {
+            background: var(--glass);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            padding: 30px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: var(--transition);
+            display: block;
+        }
+
+        .contract-card:hover {
+            border-color: var(--accent-gold);
+            background: rgba(197, 160, 89, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .contract-label {
+            font-family: 'Cinzel';
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .contract-title {
+            font-family: 'Cinzel';
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* リットリンク導線 */
+        .litlink-section {
+            margin-top: 60px;
+            text-align: center;
+            border-top: 1px double var(--accent-gold);
+            padding-top: 60px;
+        }
+
+        .btn-inventory {
+            display: inline-block;
+            padding: 15px 30px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-family: 'Cinzel';
+            letter-spacing: 2px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn-inventory:hover {
+            background: var(--accent-gold);
+            color: #000;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+        }
+
+        /* アニメーション */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* スマホ用微調整 */
+        @media (max-width: 600px) {
+            .profile-container {
+                padding: 30px 20px;
+            }
+
+            .profile-msg {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <header>
+        <div class="logo">HAULA HELLBELL</div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
+
+    <nav class="nav-menu" id="nav-menu">
+        <ul>
+            <li><a href="#hero">TOP</a></li>
+            <li><a href="#about">CASE FILE</a></li>
+            <li><a href="#links">ARSENAL</a></li>
+            <li><a href="https://haulahellbell.fanbox.cc/" target="_blank">FAN BOX</a></li>
+            <li><a href="mailto:haulahellbell.official@gmail.com">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="hero">
+            <p class="catchphrase">𓆩 弾丸の数だけ愛が舞う 𓆪</p>
+            <h1 class="hero-title">HAULA<br>HELLBELL</h1>
+            <p class="hero-sub">VIRTUAL WEAPON DEALER</p>
+        </section>
+
+        <section id="about" class="reveal">
+            <h2 class="section-title">Case File</h2>
+            <div class="profile-container">
+                <p class="profile-msg">
+                    「ごきげんよう、愛しいお客様。<br>武器でも、愛でも、お好きな方をお選びなさいな。」
+                </p>
+                <table class="profile-table">
+                    <tr>
+                        <td class="td-label">CODE NAME</td>
+                        <td class="td-data">ハウラ・ヘルベル</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">ANNIVERSARY</td>
+                        <td class="td-data">04 / 30</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">HEIGHT</td>
+                        <td class="td-data">164cm</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label" style="border: none;">SIGNATURE</td>
+                        <td class="td-data" style="border: none;">𓆩🔫𓆪</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="links" class="reveal">
+            <h2 class="section-title">The Arsenal</h2>
+            <div class="arsenal-grid">
+                <a href="https://www.youtube.com/@Haula_Hellbell" class="contract-card" target="_blank">
+                    <span class="contract-label">MISSION: 01 / VIEWING</span>
+                    <h3 class="contract-title">YouTube</h3>
+                    <p>戦場の記録。射撃訓練から歌唱任務までを閲覧する。</p>
+                </a>
+                <a href="https://x.com/haula_hellbell" class="contract-card" target="_blank">
+                    <span class="contract-label">MISSION: 02 / INTELLIGENCE</span>
+                    <h3 class="contract-title">X (Twitter)</h3>
+                    <p>潜入調査。日々の動向と最新の兵器情報を取得する。</p>
+                </a>
+                <a href="https://haulahellbell.fanbox.cc/" class="contract-card" target="_blank">
+                    <span class="contract-label">MISSION: 03 / VIP CONTRACT</span>
+                    <h3 class="contract-title">FanBOX</h3>
+                    <p>機密契約。パトロン限定の供給品や特別情報を享受する。</p>
+                </a>
+                <a href="mailto:haulahellbell.official@gmail.com" class="contract-card">
+                    <span class="contract-label">MISSION: 04 / NEGOTIATION</span>
+                    <h3 class="contract-title">Email</h3>
+                    <p>直接交渉。取引の依頼や業務に関する通信はこちらへ。</p>
+                </a>
+            </div>
+
+            <div class="litlink-section reveal">
+                <p style="margin-bottom: 20px; opacity: 0.8; font-size: 0.9rem;">ガイドライン及び詳細な在庫目録を確認する</p>
+                <a href="https://lit.link/haulahellbell" class="btn-inventory" target="_blank">VIEW FULL INVENTORY
+                    (lit.link)</a>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 60px 5%; font-size: 0.7rem; opacity: 0.4; letter-spacing: 2px;">
+        &copy; HAULA HELLBELL FAN SITE. NOT AN OFFICIAL.
+    </footer>
+
+    <script>
+        // カスタムカーソル
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            if (cursor.style.display !== 'none') {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        // ハンバーガーメニュー
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // スクロール表示
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) el.classList.add("active");
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+    </script>
+</body>
+
+</html>
