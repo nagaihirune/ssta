@@ -92,3 +92,33 @@ function createFeather(x, y) {
       feather.remove();
   }, 1500);
 }
+
+// --- 【追加】時計更新 & 時報演出制御 ---
+const digitalClock = document.getElementById('digital-clock');
+const timeSignal = document.getElementById('time-signal');
+const timeDisplay = timeSignal.querySelector('.time-display');
+const timeMessage = timeSignal.querySelector('.time-message');
+
+setInterval(() => {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    
+    // 右下の常駐時計を更新
+    if (digitalClock) {
+        digitalClock.textContent = `${hh}:${mm}:${ss}`;
+    }
+    
+    // 毎時00分00秒に全画面時報を出す
+    if (mm === "00" && ss === "00") {
+        timeDisplay.textContent = `${hh}:00`;
+        timeMessage.textContent = `${hh}:00になりました。`;
+        timeSignal.classList.add('show');
+        
+        // 7秒間表示してフェードアウト
+        setTimeout(() => {
+            timeSignal.classList.remove('show');
+        }, 7000);
+    }
+}, 1000);

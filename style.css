@@ -46,6 +46,65 @@ html, body, a, button, * {
   100% { transform: translate(15px, 25px) rotate(45deg) scale(0.3); opacity: 0; }
 }
 
+/* --- 【追加】右下の常駐時計 --- */
+#digital-clock {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  font-size: 0.9rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.15em;
+  z-index: 9000;
+  opacity: 0.7;
+  font-family: 'Shippori Mincho', serif;
+  background: rgba(253, 250, 245, 0.6);
+  padding: 6px 14px;
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(4px);
+  border-radius: 2px;
+  transition: opacity 0.5s ease;
+}
+
+/* --- 【追加】時報オーバーレイ演出 --- */
+#time-signal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  background: rgba(253, 250, 245, 0.97); /* 演出時はほぼ真っ白に */
+  backdrop-filter: blur(15px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+/* 演出開始時のクラス */
+#time-signal.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.time-display {
+  font-size: clamp(4.5rem, 18vw, 9rem);
+  font-weight: 700;
+  color: var(--accent-gold);
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.time-message {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  letter-spacing: 0.4em;
+  margin-top: 25px;
+  opacity: 0.8;
+}
+
 /* 共通背景 */
 body {
   background-color: var(--bg-paper);
@@ -131,4 +190,5 @@ canvas#particle-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: 
   .horizontal-name { font-size: 2.2rem; }
   .antique-frame { padding: 40px 20px; }
   section { padding: 80px 20px; }
+  #digital-clock { right: 10px; bottom: 10px; font-size: 0.8rem; }
 }
