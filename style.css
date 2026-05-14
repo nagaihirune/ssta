@@ -46,7 +46,7 @@ html, body, a, button, * {
   100% { transform: translate(15px, 25px) rotate(45deg) scale(0.3); opacity: 0; }
 }
 
-/* --- 【追加】右下の常駐時計 --- */
+/* --- 時計・時報 --- */
 #digital-clock {
   position: fixed;
   right: 25px;
@@ -54,7 +54,7 @@ html, body, a, button, * {
   font-size: 0.9rem;
   color: var(--accent-gold);
   letter-spacing: 0.15em;
-  z-index: 9000;
+  z-index: 4000;
   opacity: 0.7;
   font-family: 'Shippori Mincho', serif;
   background: rgba(253, 250, 245, 0.6);
@@ -62,10 +62,8 @@ html, body, a, button, * {
   border: 1px solid var(--border-light);
   backdrop-filter: blur(4px);
   border-radius: 2px;
-  transition: opacity 0.5s ease;
 }
 
-/* --- 【追加】時報オーバーレイ演出 --- */
 #time-signal {
   position: fixed;
   inset: 0;
@@ -74,36 +72,16 @@ html, body, a, button, * {
   justify-content: center;
   align-items: center;
   z-index: 20000;
-  background: rgba(253, 250, 245, 0.97); /* 演出時はほぼ真っ白に */
+  background: rgba(253, 250, 245, 0.97);
   backdrop-filter: blur(15px);
   pointer-events: none;
   opacity: 0;
   transform: scale(1.05);
   transition: opacity 1.5s ease, transform 1.5s ease;
 }
-
-/* 演出開始時のクラス */
-#time-signal.show {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.time-display {
-  font-size: clamp(4.5rem, 18vw, 9rem);
-  font-weight: 700;
-  color: var(--accent-gold);
-  font-family: 'Shippori Mincho', serif;
-  letter-spacing: 0.05em;
-  line-height: 1;
-}
-
-.time-message {
-  font-size: 1.2rem;
-  color: var(--text-main);
-  letter-spacing: 0.4em;
-  margin-top: 25px;
-  opacity: 0.8;
-}
+#time-signal.show { opacity: 1; transform: scale(1); }
+.time-display { font-size: clamp(4.5rem, 18vw, 9rem); font-weight: 700; color: var(--accent-gold); font-family: 'Shippori Mincho', serif; line-height: 1; }
+.time-message { font-size: 1.2rem; color: var(--text-main); margin-top: 25px; letter-spacing: 0.4em; }
 
 /* 共通背景 */
 body {
@@ -136,12 +114,44 @@ body {
 /* レイアウト */
 header {
   position: fixed; top: 0; width: 100%; padding: 20px 40px;
-  display: flex; justify-content: center; align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   z-index: 5000; background: rgba(253, 250, 245, 0.8);
   backdrop-filter: blur(5px); border-bottom: 1px solid var(--border-light);
 }
 .logo { font-weight: 700; letter-spacing: 0.2em; font-size: 1.1rem; }
 
+/* --- ハンバーガーメニューデザイン --- */
+#menu-btn-check { display: none; }
+.menu-btn {
+    display: flex; height: 30px; width: 30px;
+    justify-content: center; align-items: center; z-index: 6000;
+}
+.menu-btn span, .menu-btn span:before, .menu-btn span:after {
+    content: ''; display: block; height: 1px; width: 20px;
+    background-color: var(--accent-gold); position: absolute; transition: all .5s;
+}
+.menu-btn span:before { bottom: 7px; }
+.menu-btn span:after { top: 7px; }
+#menu-btn-check:checked ~ .menu-btn span { background-color: transparent; }
+#menu-btn-check:checked ~ .menu-btn span::before { bottom: 0; transform: rotate(45deg); }
+#menu-btn-check:checked ~ .menu-btn span::after { top: 0; transform: rotate(-45deg); }
+
+.nav-content {
+    position: fixed; top: 0; left: 100%; width: 100%; height: 100vh;
+    background: rgba(253, 250, 245, 0.98); z-index: 5500;
+    display: flex; justify-content: center; align-items: center;
+    transition: all .6s var(--transition-slow);
+}
+#menu-btn-check:checked ~ .nav-content { left: 0; }
+.nav-content ul { list-style: none; text-align: center; }
+.nav-content ul li { margin: 25px 0; }
+.nav-content ul li a {
+    text-decoration: none; color: var(--text-main); font-size: 1.5rem;
+    letter-spacing: 0.3em; transition: 0.3s;
+}
+.nav-content ul li a:hover { color: var(--accent-gold); }
+
+/* 各セクション */
 #hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 .hero-catch { font-size: 1.1rem; letter-spacing: 0.4em; color: var(--accent-soft); margin-bottom: 30px; }
 .horizontal-name { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 700; letter-spacing: 0.2em; }
@@ -169,7 +179,7 @@ section.active { opacity: 1; transform: translateY(0); }
 .tags-container { display: flex; flex-direction: column; gap: 30px; text-align: center; }
 .tag-group h3 { font-size: 0.85rem; color: var(--accent-soft); margin-bottom: 10px; letter-spacing: 0.2em; }
 .tag-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
-.tag-buttons a { text-decoration: none; color: var(--text-main); font-size: 1.1rem; padding: 5px 15px; border: 1px solid transparent; transition: 0.3s; }
+.tag-buttons a { text-decoration: none; color: var(--text-main); font-size: 1.1rem; padding: 5px 15px; transition: 0.3s; }
 .tag-buttons a:hover { color: var(--accent-gold); border-bottom: 1px solid var(--accent-gold); }
 
 .activity-timeline { max-width: 500px; margin: 0 auto; text-align: left; display: flex; flex-direction: column; gap: 15px; }
@@ -191,4 +201,5 @@ canvas#particle-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: 
   .antique-frame { padding: 40px 20px; }
   section { padding: 80px 20px; }
   #digital-clock { right: 10px; bottom: 10px; font-size: 0.8rem; }
+  header { padding: 15px 20px; }
 }

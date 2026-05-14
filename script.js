@@ -45,55 +45,31 @@ initCanvas(); animateParticles();
 
 // --- カスタムカーソル & 羽根の軌跡制御 ---
 const angelCursor = document.getElementById('angel-cursor');
-let lastX = 0;
-let lastY = 0;
-let distanceTraveled = 0;
+let lastX = 0; let lastY = 0; let distanceTraveled = 0;
 
 document.addEventListener('mousemove', (e) => {
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-
-  // ポインターを移動
+  const mouseX = e.clientX; const mouseY = e.clientY;
   angelCursor.style.left = `${mouseX}px`;
   angelCursor.style.top = `${mouseY}px`;
-
-  // 前回位置からの移動距離を計算
   const dist = Math.hypot(mouseX - lastX, mouseY - lastY);
   distanceTraveled += dist;
-
-  // 一定距離（25px）動くごとに羽根を1枚生成
-  if (distanceTraveled > 25) {
-      createFeather(mouseX, mouseY);
-      distanceTraveled = 0;
-  }
-
-  lastX = mouseX;
-  lastY = mouseY;
+  if (distanceTraveled > 25) { createFeather(mouseX, mouseY); distanceTraveled = 0; }
+  lastX = mouseX; lastY = mouseY;
 });
 
 function createFeather(x, y) {
   const feather = document.createElement('div');
   feather.className = 'trail-feather';
-  
-  // ランダムな大きさと角度を設定
   const size = Math.random() * 8 + 6;
   const rotation = Math.random() * 360;
-  
-  feather.style.left = `${x}px`;
-  feather.style.top = `${y}px`;
-  feather.style.width = `${size}px`;
-  feather.style.height = `${size * 0.7}px`;
+  feather.style.left = `${x}px`; feather.style.top = `${y}px`;
+  feather.style.width = `${size}px`; feather.style.height = `${size * 0.7}px`;
   feather.style.transform = `rotate(${rotation}deg)`;
-
   document.body.appendChild(feather);
-
-  // 1.5秒後に要素を消去してメモリを節約
-  setTimeout(() => {
-      feather.remove();
-  }, 1500);
+  setTimeout(() => { feather.remove(); }, 1500);
 }
 
-// --- 【追加】時計更新 & 時報演出制御 ---
+// --- 時計更新 & 時報演出制御 ---
 const digitalClock = document.getElementById('digital-clock');
 const timeSignal = document.getElementById('time-signal');
 const timeDisplay = timeSignal.querySelector('.time-display');
@@ -104,21 +80,17 @@ setInterval(() => {
     const hh = String(now.getHours()).padStart(2, '0');
     const mm = String(now.getMinutes()).padStart(2, '0');
     const ss = String(now.getSeconds()).padStart(2, '0');
-    
-    // 右下の常駐時計を更新
-    if (digitalClock) {
-        digitalClock.textContent = `${hh}:${mm}:${ss}`;
-    }
-    
-    // 毎時00分00秒に全画面時報を出す
+    if (digitalClock) digitalClock.textContent = `${hh}:${mm}:${ss}`;
     if (mm === "00" && ss === "00") {
         timeDisplay.textContent = `${hh}:00`;
         timeMessage.textContent = `${hh}:00になりました。`;
         timeSignal.classList.add('show');
-        
-        // 7秒間表示してフェードアウト
-        setTimeout(() => {
-            timeSignal.classList.remove('show');
-        }, 7000);
+        setTimeout(() => { timeSignal.classList.remove('show'); }, 7000);
     }
 }, 1000);
+
+// --- ナビゲーション連動（クリックで閉じる） ---
+const menuCheck = document.getElementById('menu-btn-check');
+document.querySelectorAll('.nav-content a').forEach(link => {
+    link.addEventListener('click', () => { menuCheck.checked = false; });
+});

@@ -18,10 +18,10 @@
         <div class="cursor-pointer"></div>
     </div>
 
-    <!-- 【追加】常駐時計（右下） -->
+    <!-- 常駐時計（右下） -->
     <div id="digital-clock">00:00:00</div>
 
-    <!-- 【追加】時報オーバーレイ（1時間ごと） -->
+    <!-- 時報オーバーレイ（1時間ごと） -->
     <div id="time-signal">
         <div class="time-display">00:00</div>
         <div class="time-message">00:00になりました。</div>
@@ -37,6 +37,24 @@
     
     <header>
         <div class="logo">NAGAI HIRUNE</div>
+        
+        <!-- ハンバーガーメニュー制御用 -->
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn">
+            <span></span>
+        </label>
+
+        <!-- ナビゲーションメニュー -->
+        <nav class="nav-content">
+            <ul>
+                <li><a href="#hero">TOP</a></li>
+                <li><a href="#profile">PROFILE</a></li>
+                <li><a href="#schedule">SCHEDULE</a></li>
+                <li><a href="#tags">TAGS</a></li>
+                <li><a href="#activity">ACTIVITY</a></li>
+                <li><a href="#links">LINKS</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -104,7 +122,6 @@
             </div>
         </section>
 
-        <!-- Activityセクション -->
         <section id="activity">
             <h2 class="section-title">ACTIVITY</h2>
             <div class="antique-frame">
