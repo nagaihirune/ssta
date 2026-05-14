@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
 
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>長居昼音 | Nagai Hirune - Virtual Dreamer</title>
+
+    <meta name="description" content="長居昼音 公式ファンサイト。今日は寝るつもりのない皆様に寄り添うVTuber。">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Quicksand:wght@400;600;700&family=Space+Mono&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="stylesheet" href="style.css">
+</head> -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,18 +52,22 @@
 
 <body>
 
+    <!-- ===== ローディング画面 ===== -->
     <div id="loading">
         <div class="loading-freq">32:00</div>
         <div class="loading-text">TUNING IN...</div>
         <div class="loading-bar"></div>
     </div>
 
+    <!-- ===== 星空キャンバス ===== -->
     <canvas id="stars-canvas"></canvas>
     <div class="bg-gradient"></div>
     <div class="noise"></div>
 
+    <!-- ===== 時刻表示 ===== -->
     <div class="clock-display" id="clock"></div>
 
+    <!-- ===== ヘッダー ===== -->
     <header>
         <div class="logo">NAGAI HIRUNE</div>
         <div class="hamburger" id="hamburger">
@@ -51,6 +75,7 @@
         </div>
     </header>
 
+    <!-- ===== 全画面ナビ ===== -->
     <nav class="nav-overlay" id="nav-overlay">
         <ul>
             <li><a href="#hero">TOP</a></li>
@@ -61,8 +86,10 @@
         </ul>
     </nav>
 
+    <!-- ===== メインコンテンツ ===== -->
     <main>
 
+        <!-- Hero -->
         <section id="hero">
             <p class="hero-catch">── 深夜32時、境界線を超えた夜 ──</p>
             <h1 class="hero-name">NAGAI<br>HIRUNE</h1>
@@ -73,6 +100,7 @@
                 <div class="arrow"></div>
             </div>
 
+            <!-- 波形SVG -->
             <div class="hero-wave">
                 <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
                     <path fill="none" stroke="rgba(157,111,255,0.3)" stroke-width="1.5">
@@ -89,6 +117,7 @@
             </div>
         </section>
 
+        <!-- Profile -->
         <section id="profile" class="reveal">
             <span class="section-label">// CASE FILE</span>
             <h2 class="section-title">Profile</h2>
@@ -122,20 +151,44 @@
             </div>
         </section>
 
+        <!-- Schedule -->
         <section id="schedule" class="reveal">
             <span class="section-label">// ON AIR</span>
             <h2 class="section-title">Schedule</h2>
             <div class="schedule-grid">
-                <div class="schedule-day"><div class="day-name">MON</div><div class="day-info">不定期</div></div>
-                <div class="schedule-day"><div class="day-name">TUE</div><div class="day-info">なし</div></div>
-                <div class="schedule-day"><div class="day-name">WED</div><div class="day-info">なし</div></div>
-                <div class="schedule-day"><div class="day-name">THU</div><div class="day-info">不定期</div></div>
-                <div class="schedule-day"><div class="day-name">FRI</div><div class="day-info">不定期</div></div>
-                <div class="schedule-day"><div class="day-name">SAT</div><div class="day-info">不定期</div></div>
-                <div class="schedule-day"><div class="day-name">SUN</div><div class="day-info">不定期</div></div>
+                <div class="schedule-day">
+                    <div class="day-name">MON</div>
+                    <div class="day-info">不定期</div>
+                </div>
+                <div class="schedule-day">
+                    <div class="day-name">TUE</div>
+                    <div class="day-info">なし</div>
+                </div>
+                <div class="schedule-day">
+                    <div class="day-name">WED</div>
+                    <div class="day-info">なし</div>
+                </div>
+                <div class="schedule-day">
+                    <div class="day-name">THU</div>
+                    <div class="day-info">不定期</div>
+                </div>
+                <div class="schedule-day">
+                    <div class="day-name">FRI</div>
+                    <div class="day-info">不定期</div>
+                </div>
+                <div class="schedule-day">
+                    <div class="day-name">SAT</div>
+                    <div class="day-info">不定期</div>
+                </div>
+                <div class="schedule-day">
+                    <div class="day-name">SUN</div>
+                    <div class="day-info">不定期</div>
+                </div>
             </div>
         </section>
 
+
+        <!-- Tags -->
         <section id="tags" class="reveal">
             <span class="section-label">// SIGNAL TAGS</span>
             <h2 class="section-title">Tags</h2>
@@ -159,60 +212,47 @@
             </div>
         </section>
 
+        <!-- Links -->
         <section id="links" class="reveal">
             <span class="section-label">// CONNECTIONS</span>
             <h2 class="section-title">Links</h2>
             <div class="links-grid">
-                <a href="https://www.youtube.com/channel/UCLt_Qu8GyaIgSY9wjMDE8pQ" class="link-card" target="_blank">
+                <a href="https://www.youtube.com/channel/UCLt_Qu8GyaIgSY9wjMDE8pQ" class="link-card" target="_blank"
+                    id="link-youtube">
                     <span class="card-label">FREQ: 01 / VIEWING</span>
                     <h3 class="card-title">YouTube</h3>
                     <p class="card-desc">配信アーカイブ、歌動画、MVなど。深夜の放送をここで。</p>
                 </a>
-
-                <a href="https://x.com/longsiesta_vt" class="link-card" target="_blank">
+                <a href="https://x.com/longsiesta_vt" class="link-card" target="_blank" id="link-x">
                     <span class="card-label">FREQ: 02 / SIGNAL</span>
                     <h3 class="card-title">X (Twitter)</h3>
                     <p class="card-desc">告知やつぶやき。日常のノイズをお届け。</p>
                 </a>
-
-                <a href="https://discord.com/invite/etvpcABAGb" class="link-card" target="_blank">
+                <a href="https://discord.com/invite/etvpcABAGb" class="link-card" target="_blank" id="link-discord">
                     <span class="card-label">FREQ: 03 / COMMUNITY</span>
                     <h3 class="card-title">Discord</h3>
                     <p class="card-desc">コミュニティサーバー。みんなと夜を過ごす場所。</p>
                 </a>
+                <a href="https://x.com/longsiesta_vt" class="link-card" target="_blank" id="link-contact">
+                    <span class="card-label">FREQ: 04 / CONTACT</span>
+                    <h3 class="card-title">お問い合わせ</h3>
+                    <p class="card-desc">お仕事・コラボの依頼はX(Twitter)のDMまで。</p>
+                </a>
             </div>
+
+
         </section>
 
     </main>
 
+    <!-- Footer -->
     <footer>
         &copy; NAGAI HIRUNE OFFICIAL SITE.
     </footer>
 
+    <!-- ===== JavaScript ===== -->
     <script src="script.js"></script>
 
 </body>
+
 </html>
-```
-
----
-
-## style.css
-
-```css
-/* 現在の style.css をここに管理 */
-/* 星空・グラスUI・Schedule・Links・Heroなど実装済み */
-```
-
----
-
-## script.js
-
-```javascript
-// 現在の script.js をここに管理
-// ハンバーガーメニュー
-// revealアニメーション
-// 星空canvas
-// 時計表示
-// ローディング処理
-```
