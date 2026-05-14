@@ -1,4 +1,4 @@
-// ローディング解除[cite: 1]
+// ローディング解除
 window.addEventListener('load', () => {
   const loading = document.getElementById('loading');
   setTimeout(() => {
@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
   }, 1200);
 });
 
-// スクロールフェードイン[cite: 1]
+// スクロールフェードイン
 const revealSections = () => {
   const sections = document.querySelectorAll('section');
   sections.forEach(section => {
@@ -19,7 +19,7 @@ const revealSections = () => {
 window.addEventListener('scroll', revealSections);
 window.addEventListener('load', revealSections);
 
-// 背景粒子[cite: 1]
+// 背景粒子
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];

@@ -1,7 +1,7 @@
 :root {
-  --bg-paper: #fdfaf5; /*[cite: 1] */
-  --text-main: #3e3a39; /*[cite: 1] */
-  --accent-gold: #c2a379; /*[cite: 1] */
+  --bg-paper: #fdfaf5;
+  --text-main: #3e3a39;
+  --accent-gold: #c2a379;
   --accent-soft: #a89486;
   --border-light: #e0ddd5;
   --transition-slow: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -12,10 +12,10 @@
 body {
   background-color: var(--bg-paper);
   color: var(--text-main);
-  font-family: 'Shippori Mincho', 'Noto Serif JP', serif; /*[cite: 1] */
+  font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
   line-height: 2;
   overflow-x: hidden;
-  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); /*[cite: 1] */
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
 }
 
 /* ローディング */
@@ -56,52 +56,52 @@ header {
 }
 .logo { font-weight: 700; letter-spacing: 0.2em; font-size: 1.1rem; }
 
-/* ヒーローエリア演出[cite: 1] */
+/* ヒーローエリア */
 #hero {
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .hero-catch {
-  font-size: 1rem;
-  letter-spacing: 0.5em;
+  font-size: 1.1rem;
+  letter-spacing: 0.4em;
   color: var(--accent-soft);
-  margin-bottom: 40px;
-  writing-mode: vertical-rl;
-  height: 280px;
+  margin-bottom: 30px;
 }
 
 .hero-name-container {
   margin: 20px 0;
-  border-right: 1px solid var(--accent-gold);
-  padding-right: 30px;
+  position: relative;
+  padding: 0 20px;
 }
 
-.vertical-name {
-  writing-mode: vertical-rl; /*[cite: 1] */
-  font-size: clamp(2.5rem, 8vw, 4rem);
+.horizontal-name {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
   font-weight: 700;
-  letter-spacing: 0.4em;
-  display: block;
-  line-height: 1.2;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
 }
 
-/* ルビ（ふりがな）のスタイル調整 */
+/* 横書きルビの調整 */
 rt {
-  font-size: 0.35em;
-  letter-spacing: 0.1em;
+  font-size: 0.3em;
+  letter-spacing: 0.5em;
   color: var(--accent-gold);
-  padding-left: 0.5em; /* 文字の左側（縦書き時の右側）に配置 */
+  transform: translateY(-0.5em);
 }
 
 .hero-sub {
-  font-size: 0.8rem;
-  letter-spacing: 0.4em;
+  font-size: 0.85rem;
+  letter-spacing: 0.5em;
   color: var(--accent-gold);
-  margin-top: 40px;
+  margin-top: 30px;
+  border-top: 1px solid var(--border-light);
+  display: inline-block;
+  padding-top: 10px;
 }
 
 /* 共通セクション */
@@ -113,7 +113,7 @@ section {
   transform: translateY(40px);
   transition: var(--transition-slow);
 }
-section.active { opacity: 1; transform: translateY(0); } /*[cite: 1] */
+section.active { opacity: 1; transform: translateY(0); }
 
 .section-title {
   text-align: center;
@@ -125,7 +125,7 @@ section.active { opacity: 1; transform: translateY(0); } /*[cite: 1] */
   background: var(--accent-gold); margin: 20px auto;
 }
 
-/* アンティークフレーム[cite: 1] */
+/* フレーム */
 .antique-frame {
   border: 1px solid var(--border-light);
   padding: 60px 40px;
@@ -172,6 +172,7 @@ footer { text-align: center; padding: 100px 0 50px; font-size: 0.7rem; opacity: 
 canvas#particle-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
 @media (max-width: 600px) {
+  .horizontal-name { font-size: 2.2rem; }
   .antique-frame { padding: 40px 20px; }
   section { padding: 80px 20px; }
 }
