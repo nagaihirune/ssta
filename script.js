@@ -1,7 +1,9 @@
-// ===== ローディング画面 =====
+// ===== ローディング解除 =====
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('loading').classList.add('hide');
+    reveal(); // 初回チェック
+    highlightToday(); // 曜日ハイライト
   }, 2200);
 });
 
@@ -10,7 +12,7 @@ window.addEventListener('load', () => {
   const canvas = document.getElementById('stars-canvas');
   const ctx = canvas.getContext('2d');
   let stars = [];
-  const STAR_COUNT = 180;
+  const STAR_COUNT = 150;
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -23,28 +25,20 @@ window.addEventListener('load', () => {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 1.4 + 0.3,
-      speed: Math.random() * 0.15 + 0.02,
-      opacity: Math.random() * 0.6 + 0.2,
-      flickerSpeed: Math.random() * 0.008 + 0.002,
-      flickerOffset: Math.random() * Math.PI * 2
+      r: Math.random() * 1.2 + 0.2,
+      speed: Math.random() * 0.1 + 0.02,
+      flicker: Math.random() * 0.01
     });
   }
 
-  let frame = 0;
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    frame++;
     stars.forEach(s => {
       s.y -= s.speed;
-      if (s.y < -5) {
-        s.y = canvas.height + 5;
-        s.x = Math.random() * canvas.width;
-      }
-      const flicker = Math.sin(frame * s.flickerSpeed + s.flickerOffset) * 0.3 + 0.7;
+      if (s.y < 0) s.y = canvas.height;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200, 190, 255, ${s.opacity * flicker})`;
+      ctx.fillStyle = `rgba(200, 190, 255, ${0.3 + Math.abs(Math.sin(Date.now() * s.flicker))})`;
       ctx.fill();
     });
     requestAnimationFrame(draw);
@@ -74,14 +68,25 @@ function reveal() {
   const reveals = document.querySelectorAll('.reveal');
   reveals.forEach(el => {
     const top = el.getBoundingClientRect().top;
-    const windowH = window.innerHeight;
-    if (top < windowH - 60) {
+    if (top < window.innerHeight - 80) {
       el.classList.add('active');
     }
   });
 }
 window.addEventListener('scroll', reveal);
-window.addEventListener('load', () => setTimeout(reveal, 2400));
+
+// ===== 曜日ハイライト =====
+function highlightToday() {
+  const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const todayName = days[new Date().getDay()];
+  const scheduleDays = document.querySelectorAll('.schedule-day');
+
+  scheduleDays.forEach(day => {
+    if (day.querySelector('.day-name').textContent === todayName) {
+      day.classList.add('active-day');
+    }
+  });
+}
 
 // ===== 時刻表示 =====
 function updateClock() {
