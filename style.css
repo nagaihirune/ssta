@@ -200,6 +200,56 @@ section.active { opacity: 1; transform: translateY(0); }
   }
 }
 
+/* Activityセクション用スタイル */
+.activity-timeline {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  border-bottom: 1px dotted var(--border-light);
+  padding-bottom: 8px;
+  transition: 0.3s;
+}
+
+.activity-item:hover {
+  border-bottom-color: var(--accent-gold);
+  transform: translateX(5px);
+}
+
+.activity-date {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+  width: 120px;
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.activity-content {
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+}
+
+/* モバイルでの調整 */
+@media (max-width: 600px) {
+  .activity-date {
+      width: 100px;
+      font-size: 0.8rem;
+  }
+  .activity-content {
+      font-size: 0.85rem;
+  }
+}
+
 /* リンク */
 .links-list { display: flex; flex-direction: column; gap: 15px; }
 .link-item {
