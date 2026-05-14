@@ -52,3 +52,35 @@ const animateParticles = () => {
 window.addEventListener('resize', initCanvas);
 initCanvas();
 animateParticles();
+
+const angelCursor = document.getElementById('angel-cursor');
+const leftWing = document.querySelector('.wing.left');
+const rightWing = document.querySelector('.wing.right');
+
+let mouseX = 0;
+let mouseY = 0;
+let wingRotation = 0;
+let lastTime = 0;
+
+// マウス位置を記録
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+const animateWing = (time) => {
+    // 時間経過でパタパタさせる（サイン波を利用）
+    const wingFlap = Math.sin(time * 0.01) * 30; // 30度くらいの範囲で動く
+    
+    // カーソル位置を更新（少し遅れてついてくるようにするとふわふわ感が出ます）
+    angelCursor.style.left = `${mouseX}px`;
+    angelCursor.style.top = `${mouseY}px`;
+    
+    // 羽根を回転させてパタパタを表現
+    leftWing.style.transform = `rotate(${-wingFlap - 20}deg)`;
+    rightWing.style.transform = `rotate(${wingFlap + 20}deg)`;
+    
+    requestAnimationFrame(animateWing);
+};
+
+requestAnimationFrame(animateWing);

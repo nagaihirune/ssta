@@ -9,6 +9,48 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* 標準のカーソルは非表示にする（お好みで） */
+body {
+  cursor: none;
+}
+a, button {
+  cursor: none;
+}
+
+/* 羽根全体のコンテナ */
+#angel-cursor {
+  position: fixed;
+  pointer-events: none; /* クリックを邪魔しない */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: screen; /* 背景に馴染ませる */
+}
+
+/* 羽根の共通パーツ */
+.wing {
+  width: 30px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 100% 0% 100% 100%; /* 羽根の形 */
+  box-shadow: 0 0 10px rgba(194, 163, 121, 0.5); /* 金色の光芒 */
+  transition: transform 0.1s ease-out;
+}
+
+/* 左の羽根 */
+.wing.left {
+  transform-origin: right center;
+  margin-right: 2px;
+}
+
+/* 右の羽根 */
+.wing.right {
+  transform-origin: left center;
+  border-radius: 0% 100% 100% 100%;
+  margin-left: 2px;
+}
+
 body {
   background-color: var(--bg-paper);
   color: var(--text-main);
@@ -283,15 +325,4 @@ canvas#particle-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: 
   .horizontal-name { font-size: 2.2rem; }
   .antique-frame { padding: 40px 20px; }
   section { padding: 80px 20px; }
-}
-
-/* カーソルの設定 */
-body {
-  /* 1.画像へのパス  2.クリック判定の位置(0 0でOK)  3.読み込めない時の代替え(pointer) */
-  cursor: url('angel-wing.png') 0 0, auto;
-}
-
-/* リンクの上では少し指差しっぽくしたい場合 */
-a, button {
-  cursor: url('angel-wing.png') 0 0, pointer;
 }
