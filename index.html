@@ -10,17 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- 外部CSSの読み込み -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ローディング[cite: 1] -->
     <div id="loading">
         <div class="loading-icon"></div>
-        <p>まどろみの淵へ...</p>
+        <p>LOADING SIESTA...</p>
     </div>
     
-    <!-- 粒子背景用キャンバス[cite: 1] -->
     <canvas id="particle-canvas"></canvas>
     
     <header>
@@ -28,11 +25,22 @@
     </header>
 
     <main>
-        <!-- Heroセクション (縦書き演出)[cite: 1] -->
+        <!-- Heroセクション[cite: 1] -->
         <section id="hero" class="active">
-            <p class="hero-catch">境界線の向こう側、まどろみの夜に。</p>
-            <h1 class="hero-name">長居 昼音</h1>
-            <p class="hero-sub">Nagai Hirune - Virtual Dreamer</p>
+            <p class="hero-catch">深夜32時、境界線を超えた夜。</p>
+            
+            <div class="hero-name-container">
+                <ruby class="vertical-name">
+                    長<rt>な</rt>
+                    居<rt>が</rt>
+                    昼<rt>い</rt>
+                    音<rt>ひ</rt>
+                    　<rt>る</rt>
+                    　<rt>ね</rt>
+                </ruby>
+            </div>
+            
+            <p class="hero-sub">Nagai Hirune - Virtual YouTuber</p>
         </section>
 
         <!-- Profileセクション[cite: 1] -->
@@ -77,7 +85,6 @@
 
     <footer>&copy; NAGAI HIRUNE.</footer>
 
-    <!-- 外部JavaScriptの読み込み -->
     <script src="script.js"></script>
 </body>
 </html>
