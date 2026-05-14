@@ -156,6 +156,50 @@ section.active { opacity: 1; transform: translateY(0); }
 }
 .day-name { font-size: 0.7rem; color: var(--accent-gold); margin-bottom: 8px; }
 
+/* Tagsセクション用スタイル */
+.tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: center;
+}
+
+.tag-group h3 {
+  font-size: 0.85rem;
+  color: var(--accent-soft);
+  margin-bottom: 10px;
+  letter-spacing: 0.2em;
+}
+
+.tag-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.tag-buttons a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 1.1rem;
+  padding: 5px 15px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.tag-buttons a:hover {
+  color: var(--accent-gold);
+  border-bottom: 1px solid var(--accent-gold);
+}
+
+/* モバイルでの調整 */
+@media (max-width: 600px) {
+  .tag-buttons {
+      flex-direction: column;
+      gap: 5px;
+  }
+}
+
 /* リンク */
 .links-list { display: flex; flex-direction: column; gap: 15px; }
 .link-item {
