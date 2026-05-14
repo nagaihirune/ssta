@@ -1,4 +1,4 @@
-// ローディング解除
+// --- ローディング解除 ---
 window.addEventListener('load', () => {
   const loading = document.getElementById('loading');
   setTimeout(() => {
@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
   }, 1200);
 });
 
-// スクロールフェードイン
+// --- スクロールフェードイン ---
 const revealSections = () => {
   const sections = document.querySelectorAll('section');
   sections.forEach(section => {
@@ -19,7 +19,7 @@ const revealSections = () => {
 window.addEventListener('scroll', revealSections);
 window.addEventListener('load', revealSections);
 
-// 背景粒子
+// --- 背景粒子（まどろみの光） ---
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -27,7 +27,7 @@ let particles = [];
 const initCanvas = () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  particles = Array.from({ length: 50 }, () => ({
+  particles = Array.from({ length: 55 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 2,
@@ -53,32 +53,39 @@ window.addEventListener('resize', initCanvas);
 initCanvas();
 animateParticles();
 
-// --- 片羽のカーソル制御 ---
+// --- 天使の輪カーソル制御 ---
 const angelCursor = document.getElementById('angel-cursor');
-const leftWing = document.querySelector('.wing.left');
+const halo = document.querySelector('.halo');
 
 let mouseX = 0;
 let mouseY = 0;
+let currentX = 0;
+let currentY = 0;
 
 document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 });
 
-const animateWing = (time) => {
-    // 呼吸するようにゆらゆら揺れる
-    const wingSwing = Math.sin(time * 0.003) * 8;
+const animateHalo = (time) => {
+    // マウスに遅れてついてくる「慣性」の計算 (0.15は追従速度)
+    currentX += (mouseX - currentX) * 0.15;
+    currentY += (mouseY - currentY) * 0.15;
+
+    // 上下にふわふわ揺れる動き
+    const floating = Math.sin(time * 0.003) * 6;
     
-    // マウス位置に追従
-    angelCursor.style.left = `${mouseX}px`;
-    angelCursor.style.top = `${mouseY}px`;
+    // 位置更新
+    angelCursor.style.left = `${currentX}px`;
+    angelCursor.style.top = `${currentY + floating}px`;
     
-    // ペンのように少し斜めを向かせる
-    if (leftWing) {
-        leftWing.style.transform = `rotate(${wingSwing - 15}deg)`;
+    // 移動速度に合わせて少しだけ傾ける
+    const tilt = (mouseX - currentX) * 0.6;
+    if (halo) {
+        halo.style.transform = `rotateX(45deg) rotateZ(${tilt}deg)`;
     }
     
-    requestAnimationFrame(animateWing);
+    requestAnimationFrame(animateHalo);
 };
 
-requestAnimationFrame(animateWing);
+requestAnimationFrame(animateHalo);

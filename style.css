@@ -7,40 +7,46 @@
   --transition-slow: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* --- 【最重要】通常のカーソルを強制的に消す --- */
+/* --- 標準カーソルを全要素で強制非表示 --- */
 html, body, a, button, * {
   cursor: none !important;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* --- 片羽のカーソル設定 --- */
+/* --- 天使の輪の設定 --- */
 #angel-cursor {
   position: fixed;
   pointer-events: none;
   z-index: 10001;
-  left: 0;
-  top: 0;
-  transform: translate(0, 0); /* 位置調整 */
+  left: 0; top: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform;
 }
 
-.wing {
-  width: 10px;  /* 細く */
-  height: 35px; /* 長く */
-  background: white;
-  border: 1px solid var(--accent-gold);
-  box-shadow: 0 0 12px rgba(194, 163, 121, 0.6);
+.halo {
+  width: 35px;
+  height: 14px;
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(194, 163, 121, 0.8), 
+              inset 0 0 5px rgba(194, 163, 121, 0.4);
+  background: transparent;
+  transform: rotateX(45deg); /* 立体的な傾き */
+}
+
+/* 輪の背後のほのかな光 */
+.halo::after {
+  content: '';
   position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%; height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(194, 163, 121, 0.15) 0%, transparent 70%);
+  filter: blur(4px);
 }
 
-.wing.left {
-  /* 先端を鋭く尖らせる形 */
-  border-radius: 100% 0% 100% 0%; 
-  transform-origin: top right;
-  display: block;
-}
-
-/* 共通背景設定 */
 body {
   background-color: var(--bg-paper);
   color: var(--text-main);
@@ -79,7 +85,6 @@ header {
 
 #hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 .hero-catch { font-size: 1.1rem; letter-spacing: 0.4em; color: var(--accent-soft); margin-bottom: 30px; }
-.hero-name-container { margin: 20px 0; }
 .horizontal-name { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 700; letter-spacing: 0.2em; }
 rt { font-size: 0.3em; letter-spacing: 0.5em; color: var(--accent-gold); }
 .hero-sub { font-size: 0.85rem; letter-spacing: 0.5em; color: var(--accent-gold); margin-top: 30px; border-top: 1px solid var(--border-light); padding-top: 10px; }
