@@ -163,9 +163,23 @@ section.active { opacity: 1; transform: translateY(0); }
   border: 1px solid var(--border-light);
   padding: 25px 40px;
   display: flex; justify-content: space-between;
-  background: white; transition: 0.4s;
+  align-items: center;
+  background: rgba(255,255,255,0.6);
+  transition: 0.4s;
 }
-.link-item:hover { border-color: var(--accent-gold); background: var(--bg-paper); }
+.link-item:hover { 
+  border-color: var(--accent-gold); 
+  background: var(--bg-paper);
+  padding-left: 50px;
+}
+
+/* お仕事依頼用リンクの特別調整 */
+.work-link span:first-child {
+  font-size: 0.9rem; /* 長いテキストなので少し小さめに */
+  letter-spacing: 0.05em;
+}
+
+.arrow { color: var(--accent-gold); transition: 0.4s; }
 
 footer { text-align: center; padding: 100px 0 50px; font-size: 0.7rem; opacity: 0.6; }
 
