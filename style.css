@@ -9,11 +9,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* --- 天使の羽根カーソル設定 --- */
-body, a, button {
-  cursor: none; /* 標準カーソルを隠す */
-}
-
+/* --- 天使の羽根カーソル設定（微調整版） --- */
 #angel-cursor {
   position: fixed;
   pointer-events: none;
@@ -24,24 +20,26 @@ body, a, button {
 }
 
 .wing {
-  width: 25px;
-  height: 12px;
+  width: 18px;  /* 少し小さくしました（25px → 18px） */
+  height: 20px; /* 縦に少し長くしてハート感を出しました */
   background: white;
   border: 1px solid var(--accent-gold);
-  box-shadow: 0 0 8px rgba(194, 163, 121, 0.6);
+  box-shadow: 0 0 6px rgba(194, 163, 121, 0.5);
   position: absolute;
 }
 
 .wing.left {
-  border-radius: 100% 0% 100% 100%;
+  /* 左側の羽根：右上をキュッと絞ってハートの左半分に */
+  border-radius: 80% 20% 100% 100%;
   transform-origin: right center;
-  right: 2px;
+  right: 1px;
 }
 
 .wing.right {
-  border-radius: 0% 100% 100% 100%;
+  /* 右側の羽根：左上をキュッと絞ってハートの右半分に */
+  border-radius: 20% 80% 100% 100%;
   transform-origin: left center;
-  left: 2px;
+  left: 1px;
 }
 /* -------------------------- */
 
