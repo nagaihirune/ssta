@@ -284,3 +284,14 @@ canvas#particle-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: 
   .antique-frame { padding: 40px 20px; }
   section { padding: 80px 20px; }
 }
+
+/* カーソルの設定 */
+body {
+  /* 1.画像へのパス  2.クリック判定の位置(0 0でOK)  3.読み込めない時の代替え(pointer) */
+  cursor: url('angel-wing.png') 0 0, auto;
+}
+
+/* リンクの上では少し指差しっぽくしたい場合 */
+a, button {
+  cursor: url('angel-wing.png') 0 0, pointer;
+}
